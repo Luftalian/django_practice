@@ -1,6 +1,5 @@
 # django_practice
 
-
 https://docs.djangoproject.com/ja/4.1/
 
 ## How to build
