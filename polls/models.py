@@ -28,3 +28,28 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
+
+class User(models.Model):
+    username = models.CharField(max_length=200, default="Anonymous")
+    password = models.CharField(max_length=200, default="Anonymous")
+    avatar = models.ImageField(upload_to='images/', default="images/default_user.png")
+    def __str__(self):
+        return self.username
+
+class Comment(models.Model):
+    text = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    def __str__(self):
+        return self.text
+
+class Photos(models.Model):
+    title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='images/')
+    text = models.TextField()
+    time = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    comment_list = models.ManyToManyField(Comment, blank=True)
+    likes = models.IntegerField(default=0)
+    def __str__(self):
+        return self.title
